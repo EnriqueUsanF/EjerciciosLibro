@@ -5,6 +5,7 @@ public class unidadDos {
 	private static Scanner scanner = new Scanner(System.in);
 	private static final DecimalFormat df = new DecimalFormat("0.00");
 	private static final DecimalFormat df3 = new DecimalFormat("0.000");
+	private static final DecimalFormat df0 = new DecimalFormat("0");
 	
 	public static void dosUno() {
 		System.out.print("Ingresa las millas: ");
@@ -132,7 +133,7 @@ public class unidadDos {
 		double velocidad = scanner.nextDouble();
 		double aceleracion = scanner.nextDouble();
 		double largo = Math.pow(velocidad, 2) / (2 * aceleracion);
-		System.out.println("La longitud minima para el despegue del aeroplano es de ");
+		System.out.println("La longitud minima para el despegue del aeroplano es de " + largo);
 	}
 	
 	public static void dosTrece() {
@@ -151,5 +152,109 @@ public class unidadDos {
 		System.out.println("Despues del quinto mes el valor de la cuenta va a ser de " + cantidadIncremento);
 		cantidadIncremento = (cantidad + cantidadIncremento) * (1 + 0.003125);
 		System.out.println("Despues del sexto mes el valor de la cuenta va a ser de " + cantidadIncremento);
+	}
+	
+	public static void dosCatorce() {
+		System.out.print("Ingresa tu peso en libras: ");
+		double peso = scanner.nextDouble();
+		System.out.print("Ingresa tu altura en pulgadas: ");
+		double altura = scanner.nextDouble();
+		double pesokg = peso * 0.45359237;
+		double alturam = altura / 39.370;
+		double bmi = pesokg / (alturam * alturam);
+		System.out.println("BMI es de " + df3.format(bmi));
+	}
+	
+	public static void dosQuince() {
+		System.out.print("Ingresa x1 y y1: ");
+		double x1 = scanner.nextDouble();
+		double y1 = scanner.nextDouble();
+		System.out.print("Ingresa x2 y y2: ");
+		double x2 = scanner.nextDouble();
+		double y2 = scanner.nextDouble();
+		double distancia = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+		System.out.println("La distancia entre los dos puntos es de " + distancia);
+	}
+	
+	public static void dosDieciseis() {
+		System.out.print("Ingresa la longitud de un lado: ");
+		double lado = scanner.nextDouble();
+		double area = ((3 * Math.sqrt(3)) / 2) * Math.pow(lado, 2);
+		System.out.println("el area del Hexagono es de " + df3.format(area));
+	}
+	
+	public static void dosDiecisiete() {
+		System.out.print("Ingresa la temperatura en grados Fahrenheit entre "
+				+ "-58°F y 41°F:");
+		double temperatura = scanner.nextDouble();
+		System.out.print("Ingresa la velocidad del viento ( >= 2 ) en millas por hora:");
+		double viento = scanner.nextDouble();
+		double sensacionTermica = 35.74 + (0.6215 * temperatura) - (35.75 * Math.pow(viento, 0.16)) + (0.4275 * temperatura * Math.pow(viento, 0.16));
+		System.out.println("La sensacion termica ees de " + sensacionTermica);
+	}
+	
+	public static void dosDieciocho() {
+		System.out.println("   a\t   b\tPunto medio");
+		double a=0, b=1, c=2, d=3, e=4, f=5, g=6, h=7, i=9, j=10, k=11, l=12;
+		System.out.println("(" + df0.format(a) + ", " + df0.format(a) + ")\t" + "(" + df0.format(c) + ", " + df0.format(b) + ")\t" + "(" + (((c-a)/2) + a) + ", " + (((b-a)/2) + a) + ")");
+		System.out.println("(" + df0.format(b) + ", " + df0.format(e) + ")\t" + "(" + df0.format(e) + ", " + df0.format(c) + ")\t" + "(" + (((e-b)/2) + b) + ", " + (((c-e)/2) + e) + ")");
+		System.out.println("(" + df0.format(c) + ", " + df0.format(h) + ")\t" + "(" + df0.format(g) + ", " + df0.format(d) + ")\t" + "(" + (((g-c)/2) + c) + ", " + (((d-h)/2) + h) + ")");
+		System.out.println("(" + df0.format(d) + ", " + df0.format(i) + ")\t" + "(" + df0.format(j) + ", " + df0.format(f) + ")\t" + "(" + (((j-d)/2) + d) + ", " + (((f-i)/2) + i) + ")");
+		System.out.println("(" + df0.format(e) + ", " + df0.format(k) + ")\t" + "(" + df0.format(l) + ", " + df0.format(h) + ")\t" + "(" + (((l-e)/2) + e) + ", " + (((h-k)/2) + k) + ")");
+	}
+	
+	public static void dosDiecinueve() {
+		System.out.print("Ingresa las coordenadas de tres puntos cardinales separados "
+				+ "por espacios de la siguiente manera x1 y1 x2 y2 x3 y3: ");
+		double x1 = scanner.nextDouble();
+		double y1 = scanner.nextDouble();
+		double x2 = scanner.nextDouble();
+		double y2 = scanner.nextDouble();
+		double x3 = scanner.nextDouble();
+		double y3 = scanner.nextDouble();
+		double lado1 = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+		double lado2 = Math.sqrt(Math.pow(x3 - x1, 2) + Math.pow(y3 - y1, 2));
+		double lado3 = Math.sqrt(Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2));
+		double s = (lado1 + lado2 + lado3) / 2;
+		double area = Math.sqrt(s * (s - lado1) * (s - lado2) * (s - lado3));
+		System.out.println("El area del triangulo es de " + df.format(area));
+	}
+	
+	public static void dosVeinte() {
+		System.out.print("Ingresa el balance y la taza de intereses (e.g., 3 con 3%) -> (3 3): ");
+		double balance = scanner.nextDouble();
+		double taza = scanner.nextDouble();
+		double interes = balance * (taza / 1200);
+		System.out.println("Los intereses son de " + df3.format(interes));
+	}
+	
+	public static void dosVeintiuno() {
+		System.out.print("Ingresa el monto de inversion: ");
+		double inversion = scanner.nextDouble();
+		System.out.print("Ingresa el ratio de interes anual en porcentaje: ");
+		double interes = scanner.nextDouble();
+		System.out.print("Ingresa el numero de años: ");
+		int anios = scanner.nextInt();
+		double valores = inversion * (Math.pow((1 + (interes* 0.00083)), (anios*12)));
+		System.out.print("Los futuros valores seran de $" + df3.format(valores));
+	}
+	
+	public static void dosVeintidos() {
+		System.out.print("Igresa una cantidad entera: ");
+		int cantidad = scanner.nextInt();
+		int dolar = cantidad /100;
+		int centavo = cantidad % 100;
+		System.out.println("Dolares: " + dolar + "\nCentavos: " + centavo);
+	}
+	
+	public static void dosVeintitres() {
+		System.out.print("Ingrasa la distancia conducida: ");
+		double distancia = scanner.nextDouble();
+		System.out.print("Ingresa las cantidad de millas por galon: ");
+		double millasGalon = scanner.nextDouble();
+		System.out.print("Ingresa el precio del galon: ");
+		double precioGalon = scanner.nextDouble();
+		double costoCamino = (distancia / millasGalon) * precioGalon;
+		System.out.println("El costo del camino fue de $" + df.format(costoCamino));
 	}
 }
