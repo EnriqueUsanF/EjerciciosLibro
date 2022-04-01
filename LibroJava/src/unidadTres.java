@@ -191,38 +191,38 @@ public class unidadTres {
 
 	public static void nueve() {
 		System.out.print("Ingresa los primeros digitos del ISBN: ");
-		String isbn1 = sc.next();
-		char digito0 = isbn1.charAt(0);
-		int isbn = Integer.parseInt(isbn1);
-		int digito1;
-		if (digito0 == 0) {
-			digito1 = 0;
-		} else
-			digito1 = isbn % 10;
-		isbn = isbn / 10;
-		int digito2 = isbn % 10;
-		isbn = isbn / 10;
-		int digito3 = isbn % 10;
-		isbn = isbn / 10;
-		int digito4 = isbn % 10;
-		isbn = isbn / 10;
-		int digito5 = isbn % 10;
-		isbn = isbn / 10;
-		int digito6 = isbn % 10;
-		isbn = isbn / 10;
-		int digito7 = isbn % 10;
-		isbn = isbn / 10;
-		int digito8 = isbn % 10;
-		isbn = isbn / 10;
-		int digito9 = isbn % 10;
-		int res = ((digito9 * 1) + (digito8 * 2) + (digito7 * 3) + (digito6 * 4) + (digito5 * 5) + (digito4 * 6)
-				+ (digito3 * 7) + (digito2 * 8) + (digito1 * 9)) % 11;
-		res = res % 10;
-		if (res != 0) {
-			isbn1 += res;
-		} else
-			isbn1 += "X";
-		System.out.println("El ISBN-10 es " + isbn1);
+        String isbn1 = sc.next();
+        char digito0 = isbn1.charAt(0);
+        int isbn = Integer.parseInt(isbn1);
+        int digito1;
+        if (digito0 == 0) {
+            digito1 = 0;
+        } else
+            digito1 = isbn % 10;
+        isbn = isbn / 10;
+        int digito2 = isbn % 10;
+        isbn = isbn / 10;
+        int digito3 = isbn % 10;
+        isbn = isbn / 10;
+        int digito4 = isbn % 10;
+        isbn = isbn / 10;
+        int digito5 = isbn % 10;
+        isbn = isbn / 10;
+        int digito6 = isbn % 10;
+        isbn = isbn / 10;
+        int digito7 = isbn % 10;
+        isbn = isbn / 10;
+        int digito8 = isbn % 10;
+        isbn = isbn / 10;
+        int digito9 = isbn % 10;
+        int res = ((digito9 * 1) + (digito8 * 2) + (digito7 * 3) + (digito6 * 4) + (digito5 * 5) + (digito4 * 6)
+                + (digito3 * 7) + (digito2 * 8) + (digito1 * 9)) % 11;
+        res = res % 10;
+        if (res != 0) {
+            isbn1 += res;
+        } else
+            isbn1 += "X";
+        System.out.println("El ISBN-10 es " + isbn1);
 	}
 
 	public static void diez() {
@@ -327,13 +327,55 @@ public class unidadTres {
 				 (372950 - 171550) * 0.33 + (income - 372950) * 0.35;
 		}
 		else if (status == 1) { // Left as an exercise
-				 // Compute tax for married file jointly or qualifying widow(er)
+			tax += (income <= 16700) ? income * 0.10 : 16700 * 0.10;
+			if (income > 16700)
+				tax += (income <= 67900) ? (income - 16700) * 0.15 :
+				(67900 - 16700) * 0.15;
+			if (income > 67900)
+				tax += (income <= 137050) ? (income - 67900) * 0.25 :
+				(137050 - 67900) * 0.25;
+			if (income > 137050)
+				tax += (income <= 208850) ? (income - 137050) * 0.28 :
+				(208850 - 137050) * 0.28;
+			if (income > 208850)
+				tax += (income <= 372950) ? (income - 208850) * 0.33 :
+				(372950 - 208850) * 0.33;
+			if (income > 372950)
+				tax += (income - 372950) * 0.35;
 		}
 		else if (status == 2) { // Compute tax for married separately
-				 // Left as an exercise in Programming Exercise 3.13
+			tax += (income <= 8350) ? income * 0.10 : 8350 * 0.10;
+			if (income > 8350)
+				tax += (income <= 33950) ? (income - 8350) * 0.15 :
+				(33950 - 8350) * 0.15;
+			if (income > 33950)
+				tax += (income <= 68525) ? (income - 33950) * 0.25 :
+				(68525 - 33950) * 0.25;
+			if (income > 68525)
+				tax += (income <= 104425) ? (income - 68525) * 0.28 :
+				(104425 - 68525) * 0.28;
+			if (income > 104425)
+				tax += (income <= 186475) ? (income - 104425) * 0.33 :
+				(186475 - 104425) * 0.33;
+			if (income > 186475)
+				tax += (income - 186475) * 0.35;
 		}
 		else if (status == 3) { // Compute tax for head of household
-				 // Left as an exercise in Programming Exercise 3.13
+			tax += (income <= 11950) ? income * 0.10 : 11950 * 0.10;
+			if (income > 11950)
+				tax += (income <= 45500) ? (income - 11950) * 0.15 :
+				(45500 - 11950) * 0.15;
+			if (income > 45500)
+				tax += (income <= 117450) ? (income - 45500) * 0.25 :
+				(117450 - 45500) * 0.25;
+			if (income > 117450)
+				tax += (income <= 190200) ? (income - 117450) * 0.28 :
+				(190200 - 117450) * 0.28;
+			if (income > 190200)
+				tax += (income <= 372950) ? (income - 190200) * 0.33 :
+				(372950 - 190200) * 0.33;
+			if (income > 372950)
+				tax += (income - 372950) * 0.35;
 		}
 		else { 
 			System.out.println("Error: invalid status");
@@ -562,7 +604,20 @@ public class unidadTres {
 		double x4 = sc.nextDouble();
 		double y4 = sc.nextDouble();
 		
-		//retomar al rato
+		double a = y1 - y2;
+		double b = -1 * (x1 - x2);
+		double c = y3 - y4;
+		double d = -1 * (x3 - x4);
+		double e = (y1 - y2) * x1 - (x1 - x2) * y1;
+		double f = (y3 - y4) * x3 - (x3 - x4) * y3;
+
+		if (a * d - b * c == 0){
+			System.out.println("Las lineas son paralelas");
+		} else {
+			double x = (e * d - b * f) / (a * d - b * c);
+			double y = (a * f - e * c) / (a * d - b * c);
+			System.out.println("El punto de interseccion es (" + x + ", " + y + ")");
+		}
 	}
 	
 	public static void veintiseis() {

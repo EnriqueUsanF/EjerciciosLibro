@@ -142,4 +142,88 @@ public class unidadClasesVacias {
 	public static void treintaycinco() {
 
 	}
+	
+	public static void treintayseis() {
+		
+	}
+	
+	public static void treintaysiete() {
+
+	}
+	
+	public static void treintayocho() {
+
+	}
+	
+	public static void treintaynueve() {
+
+	}
+	
+	public static void cuarenta() {
+
+	}
+	
+	public static void cuarentayuno() {
+
+	}
+	
+	public static void cuarentaydos() {
+
+	}
+	
+	public static void cuarentaytres() {
+
+	}
+	
+	public static void cuarentaycuatro() {
+
+	}
+	
+	public static void cuarentaycinco() {
+
+	}
+	
+	public static void cuarentayseis() {
+
+	}
+	
+	public static void cuarentaysiete() {
+
+	}
+	
+	public static void cuarentayocho() {
+
+	}
+	
+	public static void cuarentaynueve() {
+
+	}
+	
+	public static void cincuenta() {
+
+	}
+	
+	public static void cincuentayuno() {
+
+	}
+	
+	public static void cincuentaydos() {
+
+	}
+	
+	public static void cincuentaytres() {
+
+	}
+	
+	public static void cincuentaycuatro() {
+
+	}
+	
+	public static void cincuentaycinco() {
+
+	}
+	
+	public static void cincuentayseis() {
+
+	}
 }
