@@ -279,7 +279,6 @@ public class unidadOcho {
 		return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 	}
 
-	//--------------------------------------aqui voy xd
 	public static void nueve() {
 		char[][] tablero = new char[3][3];
 		for (int i = 0; i < 3; i++) {
@@ -290,13 +289,13 @@ public class unidadOcho {
 		boolean flag = false, flagTiro = false;
 		imprime(tablero);
 		int x = 0, y = 0;
-		while(true) {
-			System.out.println("x");
-			if(comprobacionEspacios(tablero)) {
+		char ganador;
+		while (true) {
+			if (comprobacionEspacios(tablero)) {
 				break;
 			}
 			flagTiro = false;
-			while(flagTiro == false) {
+			while (flagTiro == false) {
 				System.out.print("Turno de X, ingresa (0,1 o 2) fila: ");
 				x = sc.nextInt();
 				System.out.print("Turno de X, ingresa (0,1 o 2) columna: ");
@@ -305,93 +304,461 @@ public class unidadOcho {
 			}
 			flagTiro = false;
 			imprime(tablero);
-			if(comprobacionEspacios(tablero)) {
+			ganador = hayGanador(tablero);
+			if (ganador == 'X') {
+				System.out.println("Gano jugador X");
+				break;
+			} else if (ganador == 'O') {
+				System.out.println("Gano jugador O");
+				break;
+			}
+			if (comprobacionEspacios(tablero)) {
 				break;
 			}
 			flagTiro = false;
-			while(flagTiro == false) {
+			while (flagTiro == false) {
 				System.out.print("Turno de O, ingresa (0,1 o 2) fila: ");
 				x = sc.nextInt();
 				System.out.print("Turno de O, ingresa (0,1 o 2) columna: ");
 				y = sc.nextInt();
-				flagTiro = tiroO(tablero, x, y);;
+				flagTiro = tiroO(tablero, x, y);
+				;
 			}
 			flagTiro = false;
 			imprime(tablero);
+			ganador = hayGanador(tablero);
+			if (ganador == 'X') {
+				System.out.println("Gano jugador X");
+				break;
+			} else if (ganador == 'O') {
+				System.out.println("Gano jugador O");
+				break;
+			}
 		}
 	}
-	//-----------------------------------------
+
 	public static void imprime(char[][] m) {
-        System.out.println("\n+-+-+-+");
-        for (int i = 0; i < m.length; i++) {
-            for (int j = 0; j < m[i].length; j++) {
-                System.out.print("|" + m[i][j]);
-            }
-            System.out.println("|\n+-+-+-+");
-        }
-    }
+		System.out.println("\n+-+-+-+");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				System.out.print("|" + m[i][j]);
+			}
+			System.out.println("|\n+-+-+-+");
+		}
+	}
+
 	public static boolean comprobacionEspacios(char[][] m) {
 		int cont = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if(m[i][j] != ' ')
+				if (m[i][j] != ' ')
 					cont++;
 			}
 		}
-		if(cont == 9) {
+		if (cont == 9) {
 			return true;
 		}
 		return false;
 	}
+
 	public static boolean tiroX(char[][] m, int x, int y) {
-		if(m[x][y] == ' ') {
+		if (m[x][y] == ' ') {
 			m[x][y] = 'X';
 			return true;
-		}else {
+		} else {
 			System.out.println("Tiro invalido");
 			return false;
 		}
 	}
+
 	public static boolean tiroO(char[][] m, int x, int y) {
-		if(m[x][y] == ' ') {
+		if (m[x][y] == ' ') {
 			m[x][y] = 'O';
 			return true;
-		}else {
+		} else {
 			System.out.println("Tiro invalido");
 			return false;
 		}
 	}
-	public static void hayGanador(char[][] m) {
-		
+
+	public static char hayGanador(char[][] m) {
+		char flag = 'n';
+		if ((m[0][0] == 'X' && m[0][1] == 'X' && m[0][2] == 'X') || (m[0][0] == 'X' && m[1][0] == 'X' && m[2][0] == 'X')
+				|| (m[0][0] == 'X' && m[1][1] == 'X' && m[2][2] == 'X')
+				|| (m[2][0] == 'X' && m[2][1] == 'X' && m[2][2] == 'X')
+				|| (m[1][0] == 'X' && m[1][1] == 'X' && m[1][2] == 'X')
+				|| (m[2][0] == 'X' && m[1][1] == 'X' && m[0][2] == 'X')
+				|| (m[0][1] == 'X' && m[1][1] == 'X' && m[2][1] == 'X')
+				|| (m[0][2] == 'X' && m[1][2] == 'X' && m[2][2] == 'X')) {
+			flag = 'X';
+		} else if ((m[0][0] == 'O' && m[0][1] == 'O' && m[0][2] == 'O')
+				|| (m[0][0] == 'O' && m[1][0] == 'O' && m[2][0] == 'O')
+				|| (m[0][0] == 'O' && m[1][1] == 'O' && m[2][2] == 'O')
+				|| (m[2][0] == 'O' && m[2][1] == 'O' && m[2][2] == 'O')
+				|| (m[1][0] == 'O' && m[1][1] == 'O' && m[1][2] == 'O')
+				|| (m[2][0] == 'O' && m[1][1] == 'O' && m[0][2] == 'O')
+				|| (m[0][1] == 'O' && m[1][1] == 'O' && m[2][1] == 'O')
+				|| (m[0][2] == 'O' && m[1][2] == 'O' && m[2][2] == 'O')) {
+			flag = 'O';
+		}
+		return flag;
 	}
-	
 
 	public static void diez() {
+		int[][] m = new int[5][5];
+		int contX = 0, contY = 0;
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = (int) (Math.random() * 2);
+				System.out.print(m[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("La fila con mas 1 es: " + buscarLineaLarga(m));
+		System.out.println("La columna con mas 1 es: " + buscarColumnaLarga(m));
+	}
 
+	public static int buscarLineaLarga(int[][] m) {
+		int numFila = 0;
+		int max = 0;
+		for (int i = 0; i < m.length; i++) {
+			int count = 0;
+			for (int j = 0; j < m[i].length; j++) {
+				if (m[i][j] == 1)
+					count++;
+			}
+			if (count > max) {
+				max = count;
+				numFila = i;
+			}
+		}
+		return numFila;
+	}
+
+	public static int buscarColumnaLarga(int[][] m) {
+		int numColumna = 0;
+		int max = 0;
+		for (int col = 0; col < m[0].length; col++) {
+			int count = 0;
+			for (int row = 0; row < m.length; row++) {
+				if (m[row][col] == 1)
+					count++;
+			}
+			if (count > max) {
+				max = count;
+				numColumna = col;
+			}
+		}
+		return numColumna;
 	}
 
 	public static void once() {
+		System.out.print("Ingresa un valor decimal (0 - 511): ");
+		int decimal = sc.nextInt();
+		String binario = "";
+		for (int i = decimal; i > 0; i /= 2) {
+			binario = (i % 2) + binario;
+		}
+		binario = "1" + binario;
+		int cont = 0, limite = binario.length() - 1;
+		int[][] m = new int[3][3];
+		if (decimal == 0) {
+			for (int i = (m.length - 1); i >= 0; i--) {
+				for (int j = (m[i].length - 1); j >= 0; j--) {
+					m[i][j] = 0;
+				}
+			}
+		} else {
+			for (int i = (m.length - 1); i >= 0; i--) {
+				for (int j = (m[i].length - 1); j >= 0; j--) {
+					if (limite > 0)
+						m[i][j] = Character.getNumericValue(binario.charAt(limite));
+					if (limite != 0)
+						limite--;
+				}
+			}
+		}
+		imprimirMatrizTransformada(m);
+	}
 
+	public static void imprimirMatrizTransformada(int[][] m1) {
+		char[][] m = new char[3][3];
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				if (m1[i][j] == 0) {
+					m[i][j] = 'H';
+				} else
+					m[i][j] = 'T';
+				System.out.print(m[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 	public static void doce() {
+		// Create a Scanner
+		Scanner input = new Scanner(System.in);
 
+		// Tax rates
+		double[] rates = { 0.10, 0.15, 0.25, 0.28, 0.33, 0.35 };
+
+		// The brackets for each rate for all the filing statuses
+		int[][] brackets = { { 8350, 33950, 82250, 171550, 372950 }, // Single filer
+				{ 16700, 67900, 137050, 20885, 372950 }, // Married jointly
+															// -or qualifying widow(er)
+				{ 8350, 33950, 68525, 104425, 186475 }, // Married separately
+				{ 11950, 45500, 117450, 190200, 372950 } // Head of household
+		};
+
+		// Prompt the user to enter filing status
+		System.out.print("(0-single filer, 1-married jointly or "
+				+ "qualifying widow(er), 2-married separately, 3-head of " + "household) Enter the filing status: ");
+		int status = getStatus();
+
+		// Prompt the user to enter taxable income
+		System.out.print("Enter the taxable income: ");
+		double income = input.nextDouble();
+
+		// Display the result
+		System.out.printf("Tax is $%6.2f\n", computeTax(brackets, rates, status, income));
+	}
+
+	/**
+	 * computeTax computes and returns the total tax for the filing status brackets
+	 */
+	public static double computeTax(int[][] brackets, double[] rates, int status, double income) {
+		double tax = 0, incomeTaxed = 0;
+		for (int i = 4; i >= 0; i--) {
+			if (income > brackets[status][i])
+				tax += (incomeTaxed = income - brackets[status][i]) * rates[i + 1];
+			income -= incomeTaxed;
+		}
+		return tax += brackets[status][0] * rates[0];
+	}
+
+	/** getStatus returns a valid status */
+	public static int getStatus() {
+		Scanner input = new Scanner(System.in);
+		int status;
+		do {
+			status = input.nextInt();
+			if (status < 0 || status > 3)
+				System.out.println("Error: invalid status");
+		} while (status < 0 || status > 3);
+		return status;
 	}
 
 	public static void trece() {
+		System.out.print("Ingresa el numero de filas y columnas de una matriz: ");
+		int fila = sc.nextInt();
+		int columna = sc.nextInt();
+		double[][] m = new double[fila][columna];
+		System.out.println("Ingresa los numeros:");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextDouble();
+			}
+		}
+		int[] minimo = locateSmallest(m);
+		System.out.println("Las cordenadas del valor mas pequeño es: (" + minimo[0] + ", " + minimo[1] + ")");
+	}
 
+	public static int[] locateSmallest(double[][] a) {
+		int[] l = new int[2];
+		l[0] = 0;
+		l[1] = 0;
+		double min = a[0][0];
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[i].length; j++) {
+				if (a[i][j] < min) {
+					l[0] = i;
+					l[1] = j;
+					min = a[i][j];
+				}
+			}
+		}
+		return l;
 	}
 
 	public static void catorce() {
+		System.out.print("Ingresa el numero de filas de una matriz cuadrada: ");
+		int num = sc.nextInt();
+		int[][] m = new int[num][num];
+		int contX = 0, contY = 0;
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = (int) (Math.random() * 2);
+				System.out.print(m[i][j] + " ");
+			}
+			System.out.println();
+		}
+		int[] filasv = filas(m);
+		int cont = 0;
+		for (int i = 0; i < filasv.length; i++) {
+			if (filasv[i] >= 0)
+				System.out.println("Todos los " + filasv[i] + "s estan en la fila " + (i + 1));
+			else
+				cont++;
+			if (cont == filasv.length)
+				System.out.println("Sin coincidencias en filas");
+		}
+		int[] columnasv = columnas(m);
+		cont = 0;
+		for (int i = 0; i < columnasv.length; i++) {
+			if (columnasv[i] >= 0)
+				System.out.println("Todos los " + columnasv[i] + "s estan en la columna " + (i + 1));
+			else
+				cont++;
+			if (cont == columnasv.length)
+				System.out.println("Sin coincidencias en columnas");
+		}
+		int v = diagonal(m);
+		if (v == 1 || v == 0) {
+			System.out.println("Todos los " + v + "s estan en la diagonal");
+		} else {
+			System.out.println("Sin coincidencias en la diagonal");
+		}
+		v = diagonalInvertida(m);
+		if (v == 1 || v == 0) {
+			System.out.println("Todos los " + v + "s estan en la diagonal invertida");
+		} else {
+			System.out.println("Sin coincidencias en la diagonal invertida");
+		}
+	}
 
+	public static int diagonalInvertida(int[][] m) {
+		int[] arreglo = new int[2];
+		arreglo[0] = 0;
+		arreglo[1] = 0;
+		for (int i = 0, j = m.length - 1; i < m.length; i++, j--) {
+			arreglo[m[i][j]]++;
+			if (arreglo[0] == m.length)
+				return 0;
+			if (arreglo[1] == m.length)
+				return 1;
+		}
+		return 2;
+	}
+
+	public static int diagonal(int[][] m) {
+		int[] arreglo = new int[2];
+		arreglo[0] = 0;
+		arreglo[1] = 0;
+		for (int i = 0; i < m.length; i++) {
+			arreglo[m[i][i]]++;
+			if (arreglo[0] == m.length)
+				return 0;
+			if (arreglo[1] == m.length)
+				return 1;
+		}
+		return 2;
+	}
+
+	public static int[] columnas(int[][] m) {
+		int[] res = new int[m.length];
+		for (int i = 0; i < res.length; i++) {
+			res[i] = -1;
+		}
+
+		int[] arreglo = new int[2];
+		for (int i = 0; i < m.length; i++) {
+			arreglo[0] = 0;
+			arreglo[1] = 0;
+
+			for (int j = 0; j < m[i].length; j++) {
+				arreglo[m[j][i]]++;
+				if (arreglo[0] < j + 1 && arreglo[1] < j + 1) {
+					break;
+				}
+			}
+
+			if (arreglo[0] >= m.length || arreglo[1] >= m.length)
+				res[i] = arreglo[0] > arreglo[1] ? 0 : 1;
+		}
+		return res;
+	}
+
+	public static int[] filas(int[][] m) {
+		int[] res = new int[m.length];
+		for (int i = 0; i < res.length; i++) {
+			res[i] = -1;
+		}
+		int[] arreglo = new int[2];
+		for (int i = 0; i < m.length; i++) {
+			arreglo[0] = 0;
+			arreglo[1] = 0;
+
+			for (int j = 0; j < m[i].length; j++) {
+				arreglo[m[i][j]]++;
+				if (arreglo[0] < j + 1 && arreglo[1] < j + 1) {
+					break;
+				}
+			}
+
+			if (arreglo[0] >= m.length || arreglo[1] >= m.length)
+				res[i] = arreglo[0] > arreglo[1] ? 0 : 1;
+		}
+		return res;
 	}
 
 	public static void quince() {
+		double[][] puntos = new double[5][2];
+		System.out.print("Ingresa los 5 puntos: ");
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				puntos[i][j] = sc.nextDouble();
+			}
+		}
+		System.out.println("Los 5 puntos" + (sameLine(puntos) ? " " : " no ") + "estan en la misma linea");
+	}
 
+	public static boolean sameLine(double[][] puntos) {
+		for (int i = 0; i < puntos.length - 2; i += 3) {
+			if (pointPosition(puntos[i][0], puntos[i][1], puntos[i + 1][0], puntos[i + 1][1], puntos[i + 2][0],
+					puntos[i + 2][1]) != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static double pointPosition(double x0, double y0, double x1, double y1, double x2, double y2) {
+		return (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0);
 	}
 
 	public static void dieciseis() {
-
+		int[][] arreglo = { { 4, 2 }, { 1, 7 }, { 4, 5 }, { 1, 2 }, { 1, 1 }, { 4, 1 } };
+		sort(arreglo);
+		for (int i = 0; i < arreglo.length; i++) {
+			for (int j = 0; j < arreglo[i].length; j++) {
+				System.out.print(arreglo[i][j] + " ");
+			}
+			System.out.print(" ");
+		}
+	}
+//-------------------------------------revision a fondo de algoritmo(checar con BbS)
+	public static void sort(int m[][]) {
+		int[] min = new int[2];
+		for (int row = 0; row < m.length - 1; row++) {
+			min[0] = m[row][0]; 
+			min[1] = m[row][1]; 
+			int index = row;
+			for (int i = row + 1; i < m.length; i++) {
+				if (m[i][0] >= min[0] && (m[i][0] >= min[1] || 
+					 m[i][1] > min[0] || m[i][1] > min[1])) { 
+					min[0] = m[i][0];
+					min[1] = m[i][1];
+					index = i;
+				}
+			}
+			if (index != row){
+				m[index][0] = m[row][0];
+				m[index][1] = m[row][1];
+				m[row][0] = min[0];
+				m[row][1] = min[1]; 
+			}
+			
+		}
 	}
 
 	public static void diecisiete() {
@@ -399,7 +766,34 @@ public class unidadOcho {
 	}
 
 	public static void dieciocho() {
-
+		int[][] m = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}};
+		System.out.println("Original");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				System.out.print(m[i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println("shuffle");
+		shuffle(m);
+	}
+	public static void shuffle(int[][] m) {
+		int[] temp = new int[2];
+		for (int i = 0; i < m.length; i++) {
+			int i1 = (int)(Math.random() * m.length);
+			temp[0] = m[i][0];
+			temp[1] = m[i][1];
+			m[i][0] = m[i1][0];
+			m[i][1] = m[i1][1];
+			m[i1][0] = temp[0];
+			m[i1][1] = temp[1];
+		}
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				System.out.print(m[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 	public static void diecinueve() {
