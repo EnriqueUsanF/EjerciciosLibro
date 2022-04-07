@@ -736,28 +736,28 @@ public class unidadOcho {
 			System.out.print(" ");
 		}
 	}
+
 //-------------------------------------revision a fondo de algoritmo(checar con BbS)
 	public static void sort(int m[][]) {
 		int[] min = new int[2];
 		for (int row = 0; row < m.length - 1; row++) {
-			min[0] = m[row][0]; 
-			min[1] = m[row][1]; 
+			min[0] = m[row][0];
+			min[1] = m[row][1];
 			int index = row;
 			for (int i = row + 1; i < m.length; i++) {
-				if (m[i][0] >= min[0] && (m[i][0] >= min[1] || 
-					 m[i][1] > min[0] || m[i][1] > min[1])) { 
+				if (m[i][0] >= min[0] && (m[i][0] >= min[1] || m[i][1] > min[0] || m[i][1] > min[1])) {
 					min[0] = m[i][0];
 					min[1] = m[i][1];
 					index = i;
 				}
 			}
-			if (index != row){
+			if (index != row) {
 				m[index][0] = m[row][0];
 				m[index][1] = m[row][1];
 				m[row][0] = min[0];
-				m[row][1] = min[1]; 
+				m[row][1] = min[1];
 			}
-			
+
 		}
 	}
 
@@ -766,7 +766,7 @@ public class unidadOcho {
 	}
 
 	public static void dieciocho() {
-		int[][] m = {{1, 2}, {3, 4}, {5, 6}, {7, 8}, {9, 10}};
+		int[][] m = { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 }, { 9, 10 } };
 		System.out.println("Original");
 		for (int i = 0; i < m.length; i++) {
 			for (int j = 0; j < m[i].length; j++) {
@@ -777,10 +777,11 @@ public class unidadOcho {
 		System.out.println("shuffle");
 		shuffle(m);
 	}
+
 	public static void shuffle(int[][] m) {
 		int[] temp = new int[2];
 		for (int i = 0; i < m.length; i++) {
-			int i1 = (int)(Math.random() * m.length);
+			int i1 = (int) (Math.random() * m.length);
 			temp[0] = m[i][0];
 			temp[1] = m[i][1];
 			m[i][0] = m[i1][0];
@@ -797,66 +798,776 @@ public class unidadOcho {
 	}
 
 	public static void diecinueve() {
+		System.out.print("Ingresa el numero de filas y columnas del arreglo(mayor a 4x4): ");
+		int filas = sc.nextInt();
+		int columnas = sc.nextInt();
+		int[][] m = new int[filas][columnas];
+		System.out.println("Ingresa los valores: ");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextInt();
+				System.out.print(m[i][j] + " ");
+			}
+			System.out.println();
+		}
 
+		System.out.println((isConsecutiveFour(m) ? "Si " : "No ") + "hay cuatro numeros consecutivos");
+	}
+
+	public static boolean isConsecutiveFour(int[][] values) {
+		boolean veredicto = false;
+		System.out.println("Ingresa los valores: ");
+		for (int i = 0; i < values.length; i++) {
+			for (int j = 0; j < values[i].length; j++) {
+				if (i < (values.length - 3) && j < (values[i].length - 3)) {
+					if ((values[i][j] == values[i][j + 1] && values[i][j] == values[i][j + 2]
+							&& values[i][j] == values[i][j + 3])
+							|| (values[i][j] == values[i + 1][j] && values[i][j] == values[i + 2][j]
+									&& values[i][j] == values[i + 3][j])
+							|| (values[i][j] == values[i + 1][j + 1] && values[i][j] == values[i + 2][j + 2]
+									&& values[i][j] == values[i + 3][j + 3])) {
+						veredicto = true;
+					}
+				} else if (i < (values.length - 3) && j >= (values[i].length - 3)) {
+					if ((values[i][j] == values[i + 1][j] && values[i][j] == values[i + 2][j]
+							&& values[i][j] == values[i + 3][j])) {
+						veredicto = true;
+					}
+				} else if (i >= (values.length - 3) && j < (values[i].length - 3)) {
+					if ((values[i][j] == values[i][j + 1] && values[i][j] == values[i][j + 2]
+							&& values[i][j] == values[i][j] + 3)
+							|| (values[i][j] == values[i - 1][j + 1] && values[i][j] == values[i - 2][j + 2]
+									&& values[i][j] == values[i - 3][j] + 3)) {
+						veredicto = true;
+					}
+				}
+			}
+		}
+		return veredicto;
 	}
 
 	public static void veinte() {
+		char[][] tablero = new char[6][7];
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[i].length; j++) {
+				tablero[i][j] = ' ';
+			}
+		}
+		imprime2(tablero);
+		int x;
+		boolean flag = false;
+		while (true) {
+			while (true) {
+				System.out.print("Truno del jugador R(Ingresa 0-6): ");
+				x = sc.nextInt();
+				flag = tiroR(tablero, x);
+				if (flag) {
+					break;
+				} else {
+					System.out.println("Tiro no valido, tira de nuez");
+				}
+			}
+			imprime2(tablero);
+			if (hayGanador2(tablero) == 1) {
+				System.out.println("Gano el jugador R");
+				break;
+			} else if (hayGanador2(tablero) == 2) {
+				System.out.println("Gano el jugador Y");
+				break;
+			}
+			while (true) {
+				System.out.print("Truno del jugador Y(Ingresa 0-6): ");
+				x = sc.nextInt();
+				flag = tiroY(tablero, x);
+				if (flag) {
+					break;
+				} else {
+					System.out.println("Tiro no valido, tira de nuez");
+				}
+			}
+			imprime2(tablero);
+			if (hayGanador2(tablero) == 1) {
+				System.out.println("Gano el jugador R");
+				break;
+			} else if (hayGanador2(tablero) == 2) {
+				System.out.println("Gano el jugador Y");
+				break;
+			}
+		}
 
+	}
+
+	public static void imprime2(char[][] m) {
+		System.out.println("\n+-+-+-+-+-+-+-+");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				System.out.print("|" + m[i][j]);
+			}
+			System.out.println("|\n+-+-+-+-+-+-+-+");
+		}
+	}
+
+	public static boolean tiroR(char[][] m, int x) {
+		boolean flag = false;
+		if (m[0][x] != ' ') {
+			flag = false;
+		} else {
+			for (int i = (m.length - 1); i >= 0; i--) {
+				if (m[i][x] == ' ') {
+					m[i][x] = 'R';
+					flag = true;
+					break;
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static boolean tiroY(char[][] m, int x) {
+		boolean flag = false;
+		if (m[0][x] != ' ') {
+			flag = false;
+		} else {
+			for (int i = (m.length - 1); i >= 0; i--) {
+				if (m[i][x] == ' ') {
+					m[i][x] = 'Y';
+					flag = true;
+					break;
+				}
+			}
+		}
+		return flag;
+	}
+
+	public static int hayGanador2(char[][] values) {
+		int veredicto = 0;
+		for (int i = 0; i < values.length; i++) {
+			for (int j = 0; j < values[i].length; j++) {
+				if (i < (values.length - 3) && j < (values[i].length - 3)) {
+					if ((values[i][j] == values[i][j + 1] && values[i][j] == values[i][j + 2]
+							&& values[i][j] == values[i][j + 3])
+							|| (values[i][j] == values[i + 1][j] && values[i][j] == values[i + 2][j]
+									&& values[i][j] == values[i + 3][j])
+							|| (values[i][j] == values[i + 1][j + 1] && values[i][j] == values[i + 2][j + 2]
+									&& values[i][j] == values[i + 3][j + 3])) {
+						if (values[i][j] == 'R') {
+							veredicto = 1;
+						} else if (values[i][j] == 'Y') {
+							veredicto = 2;
+						}
+					}
+				} else if (i < (values.length - 3) && j >= (values[i].length - 3)) {
+					if ((values[i][j] == values[i + 1][j] && values[i][j] == values[i + 2][j]
+							&& values[i][j] == values[i + 3][j])) {
+						if (values[i][j] == 'R') {
+							veredicto = 1;
+						} else if (values[i][j] == 'Y') {
+							veredicto = 2;
+						}
+					}
+				} else if (i >= (values.length - 3) && j < (values[i].length - 3)) {
+					if ((values[i][j] == values[i][j + 1] && values[i][j] == values[i][j + 2]
+							&& values[i][j] == values[i][j] + 3)
+							|| (values[i][j] == values[i - 1][j + 1] && values[i][j] == values[i - 2][j + 2]
+									&& values[i][j] == values[i - 3][j] + 3)) {
+						if (values[i][j] == 'R') {
+							veredicto = 1;
+						} else if (values[i][j] == 'Y') {
+							veredicto = 2;
+						}
+					}
+				}
+			}
+		}
+		return veredicto;
 	}
 
 	public static void veintiuno() {
+		System.out.print("Ingresa el numero de puntos: ");
+		double[][] puntos = new double[sc.nextInt()][2];
+		System.out.print("Ingresa las coordenadas de los puntos: ");
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				puntos[i][j] = sc.nextDouble();
+			}
+		}
+		double[][] distancia = distanciaTotal(puntos);
+		menorPuntos(distancia);
+	}
 
+	public static double[][] distanciaTotal(double[][] puntos) {
+		double[][] distancia = new double[puntos.length][puntos[0].length];
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				distancia[i][j] = 0;
+			}
+		}
+		for (int i = 0; i < puntos.length; i++) {
+			distancia[i][0] = i;
+			for (int j = 0; j < puntos.length; j++) {
+				if (i != j) {
+					distancia[i][1] += Math.sqrt((Math.pow((puntos[j][0] - puntos[i][0]), 2))
+							+ (Math.pow((puntos[j][1] - puntos[i][1]), 2)));
+				}
+			}
+		}
+		return distancia;
+	}
+
+	public static void menorPuntos(double[][] distancia) {
+		double[][] min = new double[1][2];
+		min[0][0] = distancia[0][0];
+		min[0][1] = distancia[0][1];
+		for (int i = 1; i < distancia.length; i++) {
+			if (min[0][1] > distancia[i][1]) {
+				min[0][0] = distancia[i][0];
+				min[0][1] = distancia[i][1];
+			}
+		}
+		System.out.println(
+				"El punto central es el " + df0.format(min[0][0]) + " con una distancia de " + df.format(min[0][1]));
 	}
 
 	public static void veintidos() {
+		int[][] m = new int[6][6];
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = (int) (Math.random() * 2);
+				System.out.print(m[i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println("En las filas" + (filasT1(m) ? " " : " no " + "se conforman de 1s"));
+		System.out.println("En las columna" + (columasT1(m) ? " " : " no " + "se conforman de 1s"));
+	}
 
+	public static boolean filasT1(int[][] m) {
+		int count = 0;
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				if (m[i][j] == 1)
+					count++;
+			}
+			if (count % 2 != 0)
+				return false;
+		}
+		return true;
+	}
+
+	public static boolean columasT1(int[][] m) {
+		int count = 0;
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				if (m[j][i] == 1)
+					count++;
+			}
+			if (count % 2 != 0)
+				return false;
+		}
+		return true;
 	}
 
 	public static void veintitres() {
+		int[][] m = new int[6][6];
+		System.out.println("Ingresa los valores de una matriz 6x6:");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextInt();
+			}
+		}
+		int fila = filasImpares(m);
+		int columna = columnasImpares(m);
+		if (fila < 0 || columna < 0)
+			System.out.println("No se ha intercambiado ninguna celda");
+		else {
+			System.out.println("Las celdas intercambiadas son (" + fila + ", " + columna + ")");
+		}
+	}
 
+	public static int filasImpares(int[][] m) {
+		for (int i = 0; i < m.length; i++) {
+			int cont = 0;
+			for (int j = 0; j < m[i].length; j++) {
+				if (m[i][j] == 1)
+					cont++;
+			}
+			if (cont % 2 != 0)
+				return i;
+		}
+		return -1;
+	}
+
+	public static int columnasImpares(int[][] m) {
+		for (int i = 0; i < m.length; i++) {
+			int cont = 0;
+			for (int j = 0; j < m.length; j++) {
+				if (m[j][i] == 1)
+					cont++;
+			}
+			if (cont % 2 != 0)
+				return i;
+		}
+		return -1;
 	}
 
 	public static void vienticuatro() {
 
 	}
 
-	public static void veinticinco() {
+	public static int[][] readASolution() {
+		Scanner input = new Scanner(System.in);
 
+		System.out.println("Enter a Sudoku puzzle solution:");
+		int[][] grid = new int[9][9];
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++)
+				grid[i][j] = input.nextInt();
+
+		return grid;
+	}
+	public static boolean isValid(int[][] grid) {
+
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++)
+				if (grid[i][j] < 1 || grid[i][j] > 9 || !isValid(i, j, grid))
+					return false;
+		return true;
+	}
+	public static boolean isValid(int i, int j, int[][] grid) {
+		for (int column = 0; column < 9; column++)
+			if (column != j && grid[i][column] == grid[i][j])
+				return false;
+
+		for (int row = 0; row < 9; row++)
+			if (row != i && grid[row][j] == grid[i][j])
+				return false;
+		for (int row = (i / 3) * 3; row < (i / 3) * 3 + 3; row++)
+			for (int col = (j / 3) * 3; col < (j / 3) * 3 + 3; col++)
+				if (!(row == i && col == j) && grid[row][col] == grid[i][j])
+					return false;
+
+		return true; 
+	}
+
+	public static void veinticinco() {
+		double[][] m = new double[3][3];
+		System.out.println("Ingresa un matriz de 3x3:");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextDouble();
+			}
+		}
+		System.out.println("Esta" + (esMarkov(m) ? " " : " no ") + "es una matriz de Markov");
+	}
+
+	public static boolean esMarkov(double[][] m) {
+		return esPositivo(m) && columnaSum1(m);
+	}
+
+	public static boolean esPositivo(double[][] m) {
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				if (m[i][j] < 0)
+					return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean columnaSum1(double[][] m) {
+		for (int columna = 0; columna < m.length; columna++) {
+			double sum = 0;
+			for (int fila = 0; fila < m.length; fila++) {
+				sum += m[fila][columna];
+			}
+			if (sum != 1)
+				return false;
+		}
+		return true;
 	}
 
 	public static void veintiseis() {
+		double[][] m = new double[4][4];
+		System.out.println("Ingresa los valores de una matriz 4x4:");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextDouble();
+			}
+		}
+		double[][] m2 = sortRows(m);
+		System.out.println("Filas ordenadas");
+		for (int i = 0; i < m2.length; i++) {
+			for (int j = 0; j < m2.length; j++) {
+				System.out.print(m2[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
 
+	public static double[][] sortRows(double[][] m) {
+		double[][] s = new double[m.length][m[0].length];
+		clonarMatriz(m, s);
+		for (int filas = 0; filas < s.length; filas++) {
+			for (int columnas = 0; columnas < s.length - 1; columnas++) {
+				double min = s[filas][columnas];
+				int index = columnas;
+				for (int j = columnas + 1; j < s.length; j++) {
+					if (min > s[filas][j]) {
+						min = s[filas][j];
+						index = j;
+					}
+				}
+				if (index != columnas) {
+					s[filas][index] = s[filas][columnas];
+					s[filas][columnas] = min;
+				}
+			}
+		}
+		return s;
+	}
+
+	public static void clonarMatriz(double[][] original, double[][] copia) {
+		for (int i = 0; i < original.length; i++) {
+			for (int j = 0; j < original[i].length; j++) {
+				copia[i][j] = original[i][j];
+			}
+		}
 	}
 
 	public static void veintisiete() {
+		double[][] m = new double[4][4];
+		System.out.println("Ingresa los valores de una matriz 4x4:");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextDouble();
+			}
+		}
+		double[][] m2 = sortColumns(m);
+		System.out.println("Filas ordenadas");
+		for (int i = 0; i < m2.length; i++) {
+			for (int j = 0; j < m2.length; j++) {
+				System.out.print(m2[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
 
+	public static double[][] sortColumns(double[][] m) {
+		double[][] s = new double[m.length][m[0].length];
+		clonarMatriz(m, s);
+		for (int columna = 0; columna < s.length; columna++) {
+			for (int filas = 0; filas < s.length - 1; filas++) {
+				double min = s[filas][columna];
+				int index = filas;
+				for (int j = filas + 1; j < s.length; j++) {
+					if (min > s[j][columna]) {
+						min = s[j][columna];
+						index = j;
+					}
+				}
+				if (index != filas) {
+					s[index][columna] = s[filas][columna];
+					s[filas][columna] = min;
+				}
+			}
+		}
+		return s;
 	}
 
 	public static void veintiocho() {
+		System.out.print("Ingresa la primer lista: ");
+		int[][] m = new int[3][3];
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextInt();
+			}
+		}
+		System.out.print("Ingresa la segunda lista: ");
+		int[][] m2 = new int[3][3];
+		for (int i = 0; i < m2.length; i++) {
+			for (int j = 0; j < m2[i].length; j++) {
+				m2[i][j] = sc.nextInt();
+			}
+		}
+		System.out.println("Los dos arreglos" + (equals(m, m2) ? " " : " no ") + "son identicos");
+	}
 
+	public static boolean equals(int[][] m1, int[][] m2) {
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (m1[i][j] != m2[i][j])
+					return false;
+			}
+		}
+		return true;
 	}
 
 	public static void veintinueve() {
+		System.out.print("Ingresa la primer lista: ");
+		int[][] m = new int[3][3];
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextInt();
+			}
+		}
+		System.out.print("Ingresa la segunda lista: ");
+		int[][] m2 = new int[3][3];
+		for (int i = 0; i < m2.length; i++) {
+			for (int j = 0; j < m2[i].length; j++) {
+				m2[i][j] = sc.nextInt();
+			}
+		}
+		System.out.println("Los dos arreglos" + (equals(m, m2) ? " " : " no ") + "contienen los mismos valores");
+	}
 
+	public static boolean equals2(int[][] m1, int[][] m2) {
+		int[] list1 = ordena2(m1);
+		int[] list2 = ordena2(m2);
+		for (int i = 0; i < list1.length; i++) {
+			if (list1[i] != list2[i])
+				return false;
+		}
+		return true;
+	}
+
+	public static int[] matrizArreglo(int[][] m) {
+		int[] list = new int[m.length * m[0].length];
+		int k = 0;
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				list[k] = m[i][j];
+				k++;
+			}
+		}
+		return list;
+	}
+
+	public static int[] ordena2(int[][] m) {
+		int[] list = matrizArreglo(m);
+		for (int i = 0; i < 3; i++) {
+			int min = list[i];
+			int minIndex = i;
+
+			for (int j = i + 1; j < 3; j++) {
+				if (min > list[j]) {
+					min = list[j];
+					minIndex = j;
+				}
+			}
+			if (minIndex != i) {
+				list[minIndex] = list[i];
+				list[i] = min;
+			}
+		}
+		return list;
 	}
 
 	public static void treinta() {
+		double[][] a = new double[2][2];
+		double[] b = new double[2];
+		System.out.println("Ingresa a00, a01, a10, a11, b0, and b1:");
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < a[i].length; j++) {
+				a[i][j] = sc.nextDouble();
+			}
+		}
+		for (int i = 0; i < b.length; i++) {
+			b[i] = sc.nextDouble();
+		}
+		double[] resultado = linearEquation(a, b);
+		if (resultado == null)
+			System.out.println("La ecuacion no tiene solucion");
+		else {
+			System.out.println("x es " + resultado[0] + " e y es " + resultado[1]);
+		}
+	}
 
+	public static double[] linearEquation(double[][] a, double[] b) {
+		if (a[0][0] * a[1][1] - a[0][1] * a[1][0] == 0)
+			return null;
+		double[] r = new double[2];
+		r[0] = (b[0] * a[1][1] - b[1] * a[0][1]) / (a[0][0] * a[1][1] - a[0][1] * a[1][0]);
+		r[1] = (b[1] * a[0][0] - b[0] * a[1][0]) / (a[0][0] * a[1][1] - a[0][1] * a[1][0]);
+
+		return r;
 	}
 
 	public static void treintayuno() {
+		double[][] puntos = new double[4][2];
+		System.out.println("Ingresa cuatro puntos:");
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				puntos[i][j] = sc.nextDouble();
+			}
+		}
+		double[] resultado = getIntersectingPoint(puntos);
+		if (resultado == null)
+			System.out.println("Ambas lineas son paralelas");
+		else {
+			System.out.println("El punto de interseccion es (" + resultado[0] + ", " + resultado[1] + ")");
+		}
 
+	}
+
+	public static double[] getIntersectingPoint(double[][] puntos) {
+		double[][] a = new double[2][2];
+		double[] b = new double[2];
+		a[0][0] = puntos[0][1] - puntos[1][1];
+		a[0][1] = -1 * (puntos[0][0] - puntos[1][0]);
+		a[1][0] = puntos[2][1] - puntos[3][1];
+		a[1][1] = -1 * (puntos[2][0] - puntos[3][0]);
+		b[0] = (puntos[0][1] - puntos[1][1]) * puntos[0][0] - (puntos[0][0] - puntos[1][0]) * puntos[0][1];
+		b[1] = (puntos[2][1] - puntos[3][1]) * puntos[2][0] - (puntos[2][0] - puntos[3][0]) * puntos[2][1];
+
+		return linearEquation(a, b);
 	}
 
 	public static void treintaydos() {
+		double[][] puntos = new double[3][2];
+		System.out.print("Ingresa x1, y1, x2, y2, x3, y3: ");
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				puntos[i][j] = sc.nextDouble();
 
+			}
+		}
+		double resultado = getTriangleArea(puntos);
+		if (resultado == 0) {
+			System.out.println("Los puntos estan en la misma linea");
+		} else {
+			System.out.println("El area del triangulo es " + df.format(resultado));
+		}
+	}
+
+	public static double getTriangleArea(double[][] points) {
+		if (estanAlineados(points)) {
+			return 0;
+		}
+		double s1 = obtenS(points[0][0], points[0][1], points[1][0], points[1][1]);
+		double s2 = obtenS(points[1][0], points[1][1], points[2][0], points[2][1]);
+		double s3 = obtenS(points[0][0], points[0][1], points[2][0], points[2][1]);
+		double s = (s1 + s2 + s3) / 2;
+		return Math.sqrt((s * (s - s1) * (s - s2) * (s - s3)));
+	}
+
+	public static double obtenS(double x1, double y1, double x2, double y2) {
+		return Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2), 0.5);
+	}
+
+	public static boolean estanAlineados(double[][] puntos) {
+		double d = (puntos[1][0] - puntos[0][0]) * (puntos[2][1] - puntos[0][1])
+				- (puntos[2][0] - puntos[0][0]) * (puntos[1][1] - puntos[0][1]);
+		if (d == 0) {
+			return true;
+		} else
+			return false;
 	}
 
 	public static void treintaytres() {
+		double[][] puntos = new double[4][2];
+		System.out.println("Ingresa x1, y1, x2, y2, x3, y3, x4, y4: ");
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				puntos[i][j] = sc.nextDouble();
+			}
+		}
+		double[] areas = new double[4];
+		double[] puntoInterseccion = puntosInterseccion(puntos);
+		double[][] t1 = new double[3][3];
+		t1[0] = puntos[0];
+		t1[1] = puntos[1];
+		t1[2] = puntoInterseccion;
+		areas[0] = getTriangleArea(t1);
+		double[][] t2 = new double[3][3];
+		t2[0] = puntos[1];
+		t2[1] = puntos[2];
+		t2[2] = puntoInterseccion;
+		areas[1] = getTriangleArea(t2);
+		double[][] t3 = new double[3][3];
+		t3[0] = puntos[2];
+		t3[1] = puntos[3];
+		t3[2] = puntoInterseccion;
+		areas[2] = getTriangleArea(t3);
+		double[][] t4 = new double[3][3];
+		t4[0] = puntos[0];
+		t4[1] = puntos[3];
+		t4[2] = puntoInterseccion;
+		areas[3] = getTriangleArea(t4);
 
+		System.out.println("Las areas son: ");
+		for (int i = 0; i < areas.length; i++) {
+			System.out.println(areas[i] + " ");
+		}
+	}
+
+	public static double[] puntosInterseccion(double[][] puntos) {
+		double x1 = puntos[0][0];
+		double y1 = puntos[0][1];
+		double x2 = puntos[2][0];
+		double y2 = puntos[2][1];
+		double x3 = puntos[1][0];
+		double y3 = puntos[1][1];
+		double x4 = puntos[3][0];
+		double y4 = puntos[3][1];
+		double a = y1 - y2;
+		double b = -(x1 - x2);
+		double c = y3 - y4;
+		double d = -(x3 - x4);
+		double e = (y1 - y2) * x1 - (x1 - x2) * y1;
+		double f = (y3 - y4) * x3 - (x3 - x4) * y3;
+		double D = a * d - b * c;
+		double Dx = e * d - b * f;
+		double Dy = a * f - e * c;
+		double x = Dx / D;
+		double y = Dy / D;
+
+		return new double[] { x, y };
 	}
 
 	public static void treintaycuatro() {
+		double[][] puntos = new double[6][2];
+		System.out.print("Ingresa 6 puntos: ");
+		for (int i = 0; i < puntos.length; i++) {
+			for (int j = 0; j < puntos[i].length; j++) {
+				puntos[i][j] = sc.nextDouble();
+			}
+		}
+		double[] res = getRightmostLowestPoint(puntos);
+		System.out.print("El punto mas pegado a la derecha es (" + res[0] + ", " + res[1] + ")");
+	}
+
+	public static double[] getRightmostLowestPoint(double[][] points) {
+		double[] pequeDerecha = points[0];
+		double[][] peques = new double[3][2];
+		for (int i = 1; i < points.length; i++) {
+			if (pequeDerecha[1] > points[i][1]) {
+				pequeDerecha = points[i];
+			} else if (pequeDerecha[1] == points[i][1]) {
+				for (int j = 0; j < peques.length; j++) {
+					if (peques[j][0] == 0.0 && peques[j][1] == 0.0) {
+						peques[j] = points[i];
+						peques[j + 1] = pequeDerecha;
+						break;
+					}
+				}
+			}
+		}
+		if (peques[0][0] != 0.0 && peques[0][1] != 0.0 && peques[1][0] != 0.0 && peques[1][1] != 0.0) {
+			for (int i = 0; i < peques.length - 1; i++) {
+				if (i == 0) {
+					if (peques[i][0] > peques[i + 1][0]) {
+						pequeDerecha = peques[i];
+					} else {
+						pequeDerecha = peques[i + 1];
+					}
+				} else {
+					if (peques[i][0] > pequeDerecha[0]) {
+						pequeDerecha = peques[i];
+					}
+				}
+			}
+		}
+		return pequeDerecha;
 
 	}
 
