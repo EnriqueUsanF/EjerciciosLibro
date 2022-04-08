@@ -1125,6 +1125,7 @@ public class unidadOcho {
 
 		return grid;
 	}
+
 	public static boolean isValid(int[][] grid) {
 
 		for (int i = 0; i < 9; i++)
@@ -1133,6 +1134,7 @@ public class unidadOcho {
 					return false;
 		return true;
 	}
+
 	public static boolean isValid(int i, int j, int[][] grid) {
 		for (int column = 0; column < 9; column++)
 			if (column != j && grid[i][column] == grid[i][j])
@@ -1146,7 +1148,7 @@ public class unidadOcho {
 				if (!(row == i && col == j) && grid[row][col] == grid[i][j])
 					return false;
 
-		return true; 
+		return true;
 	}
 
 	public static void veinticinco() {
@@ -1572,14 +1574,131 @@ public class unidadOcho {
 	}
 
 	public static void treintaycinco() {
-
+		System.out.print("Ingresa el numero de lineas de la matriz cuadrada: ");
+		int tam = sc.nextInt();
+		int[][] m = new int[tam][tam];
+		System.out.println("Ingresa valores(1 o 0): ");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				m[i][j] = sc.nextInt();
+			}
+		}
+		int[] bloqueC = findLargestBlock(m);
+		System.out.println("El cuadrado mas grande empieza en (" + bloqueC[0] + ", " + bloqueC[1]
+				+ ") y esta conformado por " + bloqueC[2] + " lineas");
+	}
+	private static int[] findLargestBlock(int[][] m) {
+		int i, j;
+		int[][] m2 = new int[m.length][m[0].length];
+		int m2Max, maxI, maxJ;
+		for (i = 0; i < m.length; i++)
+			m2[i][0] = m[i][0];
+		for (j = 0; j < m[0].length; j++)
+			m2[0][j] = m[0][j];
+		for (i = 1; i < m.length; i++) {
+			for (j = 1; j < m[0].length; j++) {
+				if (m[i][j] == 1) {
+					m2[i][j] = Math.min(m2[i][j - 1], Math.min(m2[i - 1][j], m2[i - 1][j - 1])) + 1;
+				} else {
+					m2[i][j] = 0;
+				}
+			}
+		}
+		m2Max = m2[0][0];
+		maxI = 0;
+		maxJ = 0;
+		for (i = 0; i < m.length; i++) {
+			for (j = 0; j < m[0].length; j++) {
+				if (m2Max < m2[i][j]) {
+					m2Max = m2[i][j];
+					maxI = i;
+					maxJ = j;
+				}
+			}
+		}
+		int[] resultado = new int[3];
+		int contadorLinea = 0;
+		for (i = maxI; i > maxI - m2Max; i--) {
+			contadorLinea++;
+			for (j = maxJ; j > maxJ - m2Max; j--) {
+				System.out.print(m[i][j] + " ");
+				resultado[0] = i;
+				resultado[1] = j;
+			}
+			System.out.println();
+		}
+		resultado[2] = contadorLinea;
+		return resultado;
 	}
 
 	public static void treintayseis() {
-
+		System.out.print("Ingresa el numero de lineas de la matriz cuadrada: ");
+		int tam = sc.nextInt();
+		char[][] m = new char[tam][tam];
+		char[] valor = new char[tam];
+		boolean flag = false;
+		System.out.println("Ingresa letras: ");
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < valor.length; j++) {
+				valor[j] = sc.next().charAt(0);
+			}
+			for (int j = 0; j < valor.length; j++) {
+				valor[j] = Character.toUpperCase(valor[j]);
+				if((int) valor[j] >= 65 && (int) valor[j] < (65 + tam)) {
+					flag = true;
+				} else {
+					flag = false;
+					break;
+				}
+			}
+			if(flag == false)
+				break;
+			for (int j = 0; j < valor.length; j++) {
+				m[i][j] = valor[j];
+			}
+		}
+		char flag2 = 'A';
+		System.out.println(flag ? "Cuadrado Latin" : ("Valores incorrectos los permitidos son de " + flag2 + " - " +  ((char) (flag2 + tam - 1))));
 	}
 
 	public static void treintaysiete() {
-
-	}
+		String[][] estadosCapitalesUSA = {
+                {"Alabama", "Montgomery"}, {"Alaska", "Juneau"}, {"Arizona", "Phoenix"},
+                {"Arkansas", "Little Rock"}, {"California", "Sacramento"},
+                {"Colorado", "Denver"}, {"Connecticut", "Hartford"},
+                {"Delaware", "Dover"}, {"Florida", "Tallahassee"},
+                {"Georgia", "Atlanta"}, {"Hawaii", "Honolulu"}, {"Idaho", "Boise"},
+                {"Illinois", "Springfield"}, {"Indiana", "Indianapolis"},
+                {"Iowa Des", "Moines"}, {"Kansas", "Topeka"}, {"Kentucky", "Frankfort"},
+                {"Louisiana", "Baton Rouge"}, {"Maine", "Augusta"},
+                {"Maryland", "Annapolis"}, {"Massachusetts", "Boston"},
+                {"Michigan", "Lansing"}, {"Minnesota", "Saint Paul"},
+                {"Mississippi", "Jackson"}, {"Missouri", "Jefferson City"},
+                {"Montana", "Helena"}, {"Nebraska", "Lincoln"},
+                {"Nevada", "Carson City"}, {"New Hampshire", "Concord"},
+                {"New Jersey", "Trenton"}, {"New Mexico", "Santa Fe"},
+                {"New York", "Albany"}, {"North Carolina", "Raleigh"},
+                {"North Dakota", "Bismarck"}, {"Ohio", "Columbus"},
+                {"Oklahoma", "Oklahoma City"}, {"Oregon", "Salem"},
+                {"Pennsylvania", "Harrisburg"}, {"Rhode Island", "Providence"},
+                {"South Carolina", "Columbia"}, {"South Dakota", "Pierre"},
+                {"Tennessee", "Nashville"}, {"Texas", "Austin"},
+                {"Utah", "Salt Lake City"}, {"Vermont", "Montpelier"},
+                {"Virginia", "Richmond"}, {"Washington", "Olympia"},
+                {"West Virginia", "Charleston"}, {"Wisconsin", "Madison"},
+                {"Wyoming", "Cheyenne"}};
+        String respuesta = "";
+        int cont = 0;
+        for (int i = 0; i < estadosCapitalesUSA.length; i++) {
+            System.out.print("Cual es la capital de  " + estadosCapitalesUSA[i][0] + "? ");
+            respuesta = sc.nextLine();
+            if (estadosCapitalesUSA[i][1].equalsIgnoreCase(respuesta)) {
+                System.out.println("Correcto");
+                cont++;
+            } else {
+                System.out.println("Fallaste (Normal, no son las de Mexico XD)");
+            }
+        }
+        System.out.println("Tus respuestas correctas son " + cont);
+    }
 }
