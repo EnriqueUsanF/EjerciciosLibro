@@ -10,7 +10,8 @@ public class main {
 		//unidadSeis.treintaynueve();
 		//unidadSiete.treintaycuatro();
 		//unidadOcho.treintaysiete();
-		unidadNueve.trece();
+		//unidadNueve.trece();
+		unidadDiez.dieciocho();
 	}
 
 }
